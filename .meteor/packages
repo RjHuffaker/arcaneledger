@@ -6,6 +6,7 @@
 
 meteor-platform
 autopublish
-insecure
 angularui:angular-ui-router
 angular
+insecure
+accounts-password
