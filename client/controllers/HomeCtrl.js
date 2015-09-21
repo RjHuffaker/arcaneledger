@@ -1,6 +1,6 @@
 angular.module("arcaneledger")
-	.controller("HomeCtrl", ['$scope', '$meteor',
-	function($scope, $meteor){
+	.controller("HomeCtrl", ['$rootScope', '$scope', '$meteor',
+	function($rootScope, $scope, $meteor){
 		
 		$scope.auctions = $meteor.collection(Auctions);
 		
@@ -66,6 +66,7 @@ angular.module("arcaneledger")
 		
 		$scope.addAuction = function(auction){
 			if(auction.item === "") return;
+			auction.owner = $rootScope.currentUser._id;
 			auction.date = Date.now();
 			Auctions.insert(auction);
 			$scope.newAuction = {
