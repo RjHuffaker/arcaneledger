@@ -1,0 +1,132 @@
+<h1>
+	Arcane Ledger
+</h1>
+
+<form>
+	<h4>Add Auction</h4>
+	<label>Item:</label>
+	<input ng-model="newAuction.item" style="width: 25em">
+	<br>
+	<label>Listed Price:</label>
+	<input ng-model="newAuction.price" type="number" min="105" style="width: 10em">
+	<label>Level:</label>
+	<input ng-model="newAuction.level" type="number" min="1" max="46" style="width: 5em">
+	<br>
+	<label>Slot</label>
+	<select ng-model="newAuction.slot">
+		<option value="">Any</option>
+		<option value="weapon">Weapon</option>
+		<option value="helmet">Helmet</option>
+		<option value="armor">Armor</option>
+		<option value="belt">Belt</option>
+		<option value="ring">Ring</option>
+		<option value="amulet">Amulet</option>
+		<option value="jewel">Jewel</option>
+		<option value="chest">Chest</option>
+		<option value="egg">Egg</option>
+		<option value="vanityhelmet">Vanity Helmet</option>
+		<option value="vanityarmor">Vanity Armor</option>
+		<option value="banner">Banner</option>
+	</select>
+	
+	<label>Class</label>
+	<select ng-model="newAuction.class">
+		<option value="">Any</option>
+		<option value="warrior">Warrior</option>
+		<option value="rogue">Rogue</option>
+		<option value="sorceror">Sorceror</option>
+	</select>
+	
+	<label>Rarity</label>
+	<select ng-model="newAuction.rarity">
+		<option value="">Any</option>
+		<option value="common">Common</option>
+		<option value="rare">Rare</option>
+		<option value="epic">Epic</option>
+		<option value="legendary">Legendary</option>
+		<option value="mythic">Mythic</option>
+		<option value="arcane">Arcane</option>
+	</select>
+	<br>
+	<button ng-click="addAuction(newAuction)">Add</button>
+</form>
+
+<form>
+	<h4>Search</h4>
+	<label>Item:</label>
+	<input ng-model="auctionQuery.item">
+	<br>
+	<label>Min Price:</label>
+	<input ng-model="auctionQuery.price.min" type="number" min="105" style="width: 5em">
+	<label>Max Price:</label>
+	<input ng-model="auctionQuery.price.max" type="number" min="105" style="width: 5em">
+	<label>Min Level:</label>
+	<input ng-model="auctionQuery.level.min" type="number" min="1" max="46" style="width: 5em">
+	<label>Max Level:</label>
+	<input ng-model="auctionQuery.level.max" type="number" min="1" max="46" style="width: 5em">
+	<br>
+	
+	<label>Slot</label>
+	<select ng-model="auctionQuery.keywords.slot">
+		<option value="">Any</option>
+		<option value="weapon">Weapon</option>
+		<option value="helmet">Helmet</option>
+		<option value="armor">Armor</option>
+		<option value="belt">Belt</option>
+		<option value="ring">Ring</option>
+		<option value="amulet">Amulet</option>
+		<option value="jewel">Jewel</option>
+		<option value="chest">Chest</option>
+		<option value="egg">Egg</option>
+		<option value="vanityhelmet">Vanity Helmet</option>
+		<option value="vanityarmor">Vanity Armor</option>
+		<option value="banner">Banner</option>
+	</select>
+	
+	<label>Class</label>
+	<select ng-model="auctionQuery.keywords.class">
+		<option value="">Any</option>
+		<option value="warrior">Warrior</option>
+		<option value="rogue">Rogue</option>
+		<option value="sorceror">Sorceror</option>
+	</select>
+	
+	<label>Rarity</label>
+	<select ng-model="auctionQuery.keywords.rarity">
+		<option value="">Any</option>
+		<option value="common">Common</option>
+		<option value="rare">Rare</option>
+		<option value="epic">Epic</option>
+		<option value="legendary">Legendary</option>
+		<option value="mythic">Mythic</option>
+		<option value="arcane">Arcane</option>
+	</select>
+	<br>
+	<button ng-click="browseAuctions(auctionQuery)">Search</button>
+</form>
+{{auctionQuery}}
+<h4>Search Results</h4>
+<table style="width:100%">
+<thead></thead>
+<tbody>
+	<tr>
+		<td>Item</td>
+		<td>Level</td>
+		<td>Listed Price</td>
+		<td>Slot</td>
+		<td>Class</td>
+		<td>Rarity</td>
+		<td>Date</td>
+	</tr>
+	<tr ng-repeat="auction in auctions">
+		<td>{{auction.item}}</td>
+		<td>{{auction.level}}</td>
+		<td>{{auction.price}}</td>
+		<td>{{auction.slot}}</td>
+		<td>{{auction.class}}</td>
+		<td>{{auction.rarity}}</td>
+		<td>{{auction.date | date:'short'}}</td>
+		<td><button ng-click="deleteAuction(auction)">X</button></td>
+	</tr>
+</tbody>
+</table>
