@@ -1,0 +1,151 @@
+<div ui-view="addItemModal" autoscroll="false"></div>
+
+<div ui-view="editItemModal" autoscroll="false"></div>
+
+<form class="form-horizontal">
+	<h4>Item Search</h4>
+	
+	<div class="form-group">
+		<div class="col-xs-12" role="group" style="z-index: 3">
+			<div class="input-group">
+				<span class="input-group-btn">
+	        <button class="btn btn-default" type="button">
+	        	<span class="glyphicon glyphicon-search"></span>
+	        </button>
+	      </span>
+			
+				<input class="form-control" type="text" placeholder="[Item Name]"
+					ng-model="itemSort.name">
+				<div class="input-group-btn">
+					<div class="btn-group">
+					  <button class="btn btn-default dropdown-toggle"
+					  	type="button" data-toggle="dropdown"
+					  	aria-haspopup="true" aria-expanded="false">
+					    {{itemSort.keywords.slot || '[SLOT]'}}&nbsp;
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li>
+					  		<a href="" ng-click="itemSort.keywords.slot = '';
+					  				itemSort.keywords.class = ''">[SLOT]
+					  		</a>
+					  	</li>
+					    <li ng-repeat="slot in itemData.slotList">
+					    	<a href="" ng-click="itemSort.keywords.slot = slot">{{slot}}</a>
+					    </li>
+					  </ul>
+				  </div>
+				  
+				  <div class="btn-group">
+					  <button class="btn btn-default dropdown-toggle"
+					  	ng-class="{disabled: !itemSort.keywords.slot
+								|| itemSort.keywords.slot === 'Belt'
+								|| itemSort.keywords.slot === 'Ring'
+								|| itemSort.keywords.slot === 'Amulet'
+								|| itemSort.keywords.slot === 'Crafting Item'
+								|| itemSort.keywords.slot === 'Chest'
+								|| itemSort.keywords.slot === 'Banner'}"
+					  	type="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+					    {{itemSort.keywords.class || '[CLASS]'}}&nbsp;
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					  	<li>
+					  		<a href="" ng-click="itemSort.keywords.class = ''">[CLASS]</a>
+					  	</li>
+					  	<li ng-repeat="class in itemData.classList">
+					    	<a href="" ng-click="itemSort.keywords.class = class">{{class}}</a>
+					    </li>
+					  </ul>
+					</div>
+				  
+					<div class="btn-group">
+					  <button class="btn btn-default dropdown-toggle"
+					  	type="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+					    {{itemSort.keywords.rarity || '[RARITY]'}}&nbsp;
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					  	<li>
+					  		<a href="" ng-click="itemSort.keywords.rarity = ''">[RARITY]</a>
+					  	</li>
+					  	<li ng-repeat="rarity in itemData.rarityList">
+					    	<a href="" ng-click="itemSort.keywords.rarity = rarity">{{rarity}}</a>
+					    </li>
+					  </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<h4>Item Search Results</h4>
+	<div class="form-group">
+		<div class="col-xs-12">
+			<table class="table table-condensed table-bordered" style="width: 100%">
+				<thead>
+					<tr>
+						<th>
+							<a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+								Item
+								<span ng-show="sortType === 'name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+				        <span ng-show="sortType === 'name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortType = 'keywords.slot'; sortReverse = !sortReverse">
+								Slot
+								<span ng-show="sortType === 'keywords.slot' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+				        <span ng-show="sortType === 'keywords.slot' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortType = 'keywords.class'; sortReverse = !sortReverse">
+								Class
+								<span ng-show="sortType === 'keywords.class' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+				        <span ng-show="sortType === 'keywords.class' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortType = 'keywords.rarity'; sortReverse = !sortReverse">
+								Rarity
+								<span ng-show="sortType === 'keywords.rarity' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+				        <span ng-show="sortType === 'keywords.rarity' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in itemList
+							| orderBy:sortType:sortReverse
+							| itemFilter:itemSort"
+						ng-class="{selected: (item === currentRow)}"
+						ng-click="selectRow(item)">
+						<td>{{item.name}}</td>
+						<td>{{item.keywords.slot}}</td>
+						<td>{{item.keywords.class}}</td>
+						<td>{{item.keywords.rarity}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-12">
+			<button ng-click="readItem()">
+				Add Item
+			</button>
+			<button ng-click="readItem(currentRow)"
+				ng-show="$root.currentUser._id === currentRow.owner">
+					Edit Item
+			</button>
+			<button ng-click="deleteItem(currentRow)"
+				ng-show="$root.currentUser._id === currentRow.owner">
+					Delete Item
+			</button>
+		</div>
+	</div>
+</form>

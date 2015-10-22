@@ -1,0 +1,25 @@
+.modal-overlay {
+	z-index: 5000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100% !important;
+	width: 100% !important;
+	opacity: .5;
+	background-color: black;
+}
+
+.modal-window {
+	z-index: 6000;
+	position: absolute;
+	-moz-border-radius: .7em;
+	-webkit-border-radius: .7em;
+	border-radius: .7em;
+	padding-bottom: 1em;
+	
+	border-top: 1px solid #222;
+	border-left: 1px solid #222;
+	border-right: 2px solid #111;
+	border-bottom: 2px solid #111;
+	background-color: lightGrey;
+}

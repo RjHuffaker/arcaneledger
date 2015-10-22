@@ -1,0 +1,39 @@
+<form class="form-horizontal">
+	<h4>Jewel Calculator</h4>
+	<div class="form-group">
+		<div class="col-xs-12" role="group">
+			<table style="width: 100%" class="table table-condensed table-bordered">
+				<thead>
+					<tr>
+						<th>
+							Jewel Quality
+						</th>
+						<th class="text-center">
+							Base #
+						</th>
+						<th class="text-center">
+							Price
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="jewel in socketData.jewelQualityList">
+						<td>
+							<b>{{jewel.name}}</b>
+						</td>
+						<td class="text-center">
+							{{jewel.quantity}}
+						</td>
+						<td>
+							<div numpicker
+								numvalue="jewel.price"
+								numvaluemin="1"
+								numvaluemax=""
+								numdelay="jewel.delay"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>

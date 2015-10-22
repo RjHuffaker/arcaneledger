@@ -1,0 +1,192 @@
+<div class="modal-overlay" ng-click="cancelAuction()"></div>
+
+<div class="modal-window
+	col-xs-10 col-xs-offset-0
+	col-sm-8 col-sm-offset-1
+	col-md-6 col-md-offset-2
+	col-lg-4 col-lg-offset-3">
+	
+	<form class="form form-horizontal">
+		<h4>Add Auction</h4>
+		
+		<div class="form-group">
+			<div class="col-xs-12">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle form-control"
+				  	type="button" data-toggle="dropdown"
+				  	aria-haspopup="true" aria-expanded="false">
+				    {{viewAuction.item.name || '[ITEM]'}}&nbsp;
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" style="z-index: 5">
+				    <li>
+				  		<a href="" ng-click="viewAuction.item = {}">[ITEM]
+				  		</a>
+				  	</li>
+				    <li ng-repeat="item in itemList | itemFilter:itemSort">
+				    	<a href="" ng-click="viewAuction.item = item; setSockets(viewAuction)">{{item.name}}</a>
+				    </li>
+				  </ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 3">
+				<label>Sort By:</label>
+				<div class="input-group" id="dasbuttongroup">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<button class="btn btn-default dropdown-toggle"
+							  	type="button" data-toggle="dropdown"
+							  	aria-haspopup="true" aria-expanded="false">
+							    {{itemSort.keywords.slot || '[SLOT]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li>
+							  		<a href="" ng-click="itemSort.keywords.slot = '';
+							  				itemSort.keywords.slot = ''">[SLOT]
+							  		</a>
+							  	</li>
+							    <li ng-repeat="slot in itemData.slotList">
+							    	<a href="" ng-click="itemSort.keywords.slot = slot">{{slot}}</a>
+							    </li>
+							  </ul>
+						  </div>
+						  
+						  <div class="btn-group">
+							  <button class="btn btn-default dropdown-toggle"
+							  	ng-class="{disabled: !itemSort.keywords.slot
+									|| itemSort.keywords.slot === 'Belt'
+									|| itemSort.keywords.slot === 'Ring'
+									|| itemSort.keywords.slot === 'Amulet'
+									|| itemSort.keywords.slot === 'Crafting Item'
+									|| itemSort.keywords.slot === 'Chest'
+									|| itemSort.keywords.slot === 'Banner'}"
+							  	type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+							    {{itemSort.keywords.class || '[CLASS]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							  	<li>
+							  		<a href="" ng-click="itemSort.keywords.class = ''">[CLASS]</a>
+							  	</li>
+							  	<li ng-repeat="class in itemData.classList">
+							    	<a href="" ng-click="itemSort.keywords.class = class">{{class}}</a>
+							    </li>
+							  </ul>
+							</div>
+							
+							<div class="btn-group">
+							  <button class="btn btn-default dropdown-toggle"
+							  	type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+							    {{itemSort.keywords.rarity || '[RARITY]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							  	<li>
+							  		<a href="" ng-click="itemSort.keywords.rarity = ''">[RARITY]</a>
+							  	</li>
+							  	<li ng-repeat="rarity in itemData.rarityList">
+							    	<a href="" ng-click="itemSort.keywords.rarity = rarity">{{rarity}}</a>
+							    </li>
+							  </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-6" style="z-index: 2">
+				<h4>Price</h4>
+				<div numpicker
+					numvalue="viewAuction.price"
+					numvaluemin="105"
+					numvaluemax=""
+					numdelay="200"></div>
+			</div>
+			
+			<div class="col-xs-6" style="z-index: 2">
+				<h4>Level</h4>
+				<div numpicker
+					numvalue="viewAuction.level"
+					numvaluemin="auctionSort.price.min"
+					numvaluemax=""
+					numdelay="200"></div>
+			</div>
+		</div>
+		
+		<div class="form-group" ng-repeat="socketObject in viewAuction.sockets track by $index">
+			<div class="col-xs-4">
+				<h4>Socket #{{$index+1}}</h4>
+			</div>
+			<div class="col-xs-8">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle form-control"
+				  	type="button" data-toggle="dropdown"
+				  	aria-haspopup="true" aria-expanded="false">
+				    {{socketObject.quality}}
+				    {{socketObject.type || '[TYPE]'}}
+				    {{socketObject.category || '[CATEGORY]'}}
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" style="z-index: 3; width: 100%; height: 15em; overflow-y: auto;">
+				    <li>
+				  		<a href="" ng-click="
+				  			socketObject.quality = '';
+				  			socketObject.type = '';
+				    		socketObject.category = '';">
+				    		[EMPTY SOCKET]
+				  		</a>
+				  	</li>
+				    <li ng-if="!socketObject.category"
+				    		ng-repeat="socket in socketData.socketList">
+				    	<a href="" ng-click="socketObject.quality = socket.quality;
+				    			socketObject.category = socket.category;">
+				    		{{socket.quality}} {{socket.category}}
+				    	</a>
+				    </li>
+				    <li ng-if="socketObject.category === 'Gem'"
+				    		ng-repeat="gem in socketData.gemTypeList">
+				    	<a href="" ng-click="socketObject.type = gem">
+				    		{{socketObject.quality}} {{gem}} {{socketObject.category}}
+				    	</a>
+				    </li>
+				    <li ng-if="socketObject.category === 'Jewel'"
+				    		ng-repeat="jewel in socketData.jewelTypeList">
+				    	<a href="" ng-click="socketObject.type = jewel">
+				    		{{socketObject.quality}} {{jewel}} {{socketObject.category}}
+				    	</a>
+				    </li>
+				  </ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 2">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<button class="btn btn-default"
+									ng-click="addAuction(viewAuction);">Add</button>
+							</div>
+							<div class="btn-group">
+								<button class="btn btn-default"
+									ng-click="cancelAuction()">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	{{viewAuction}}
+</div>

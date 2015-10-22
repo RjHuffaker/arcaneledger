@@ -2,8 +2,9 @@
 	<base href="/">
 </head>
 <body>
-	<h1>Arcane Ledger <sub>{{> loginButtons }}</sub></h1>
-	<div ng-app="arcaneledger">
+	<div ng-app="arcaneledger" class="container">
+		<div ng-include src="'client/views/navbar.ng.html'"></div>
+		
 		<div ui-view></div>
 	</div>
 </body>

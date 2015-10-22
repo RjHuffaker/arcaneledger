@@ -1,0 +1,116 @@
+<div class="modal-overlay" ng-click="cancelItem()"></div>
+
+<div class="modal-window
+	col-xs-10 col-xs-offset-1
+	col-sm-8 col-sm-offset-1
+	col-md-6 col-md-offset-2
+	col-lg-4 col-lg-offset-3">
+	
+	<form class="form-horizontal">
+		<h4>Add Item</h4>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group">
+				<input class="form-control" type="text" placeholder="[Item Name]"
+					ng-model="viewItem.name">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 3">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							
+							<div class="btn-group">
+							  <button class="btn btn-default dropdown-toggle"
+							  	type="button" data-toggle="dropdown"
+							  	aria-haspopup="true" aria-expanded="false">
+							    {{viewItem.keywords.slot || '[SLOT]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li>
+							  		<a href="" ng-click="viewItem.keywords.slot = '';
+							  				viewItem.keywords.class = ''">[SLOT]
+							  		</a>
+							  	</li>
+							    <li ng-repeat="slot in itemData.slotList">
+							    	<a href="" ng-click="viewItem.keywords.slot = slot">{{slot}}</a>
+							    </li>
+							  </ul>
+						  </div>
+						  
+						  <div class="btn-group">
+							  <button class="btn btn-default dropdown-toggle"
+							  	ng-class="{disabled: !viewItem.keywords.slot
+									|| viewItem.keywords.slot === 'Belt'
+									|| viewItem.keywords.slot === 'Ring'
+									|| viewItem.keywords.slot === 'Amulet'
+									|| viewItem.keywords.slot === 'Crafting Item'
+									|| viewItem.keywords.slot === 'Chest'
+									|| viewItem.keywords.slot === 'Banner'}"
+							  	type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+							    {{viewItem.keywords.class || '[CLASS]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							  	<li>
+							  		<a href="" ng-click="viewItem.keywords.class = ''">[CLASS]</a>
+							  	</li>
+							  	<li ng-repeat="class in itemData.classList">
+							    	<a href="" ng-click="viewItem.keywords.class = class">{{class}}</a>
+							    </li>
+							  </ul>
+							</div>
+							
+							<div class="btn-group">
+							  <button class="btn btn-default dropdown-toggle"
+							  	type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+							    {{viewItem.keywords.rarity || '[RARITY]'}}&nbsp;
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							  	<li>
+							  		<a href="" ng-click="viewItem.keywords.rarity = ''">[RARITY]</a>
+							  	</li>
+							  	<li ng-repeat="rarity in itemData.rarityList">
+							    	<a href="" ng-click="viewItem.keywords.rarity = rarity">{{rarity}}</a>
+							    </li>
+							  </ul>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 2">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							
+							<div class="btn-group">
+								<button class="btn btn-default" ng-click="addItem(viewItem)">Add Item</button>
+							</div>
+							
+							<div class="btn-group">
+								<button class="btn btn-default" ng-click="cancelItem()">Cancel</button>
+							</div>
+							
+							<div class="btn-group">
+								<button class="btn btn-default" ng-click="readItem()">Clear Form</button>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+</div>
