@@ -71,7 +71,7 @@ angular.module("arcaneledger")
 				}
 			];
 			
-			service.gemTypeList = ['Fire', 'Blood', 'Glacial', 'Tarloks Rage', 'Tarloks Wind', 'Tarloks Wisdom', 'Reinforced Fire', 'Reinforced Blood', 'Reinforced Glacial', 'Paracelsus Soul Stone', 'Elondrian', 'Enchanted Eye of Syrillax', 'Necropolis Cursed Skull'];
+			service.gemTypeList = ['Fire', 'Blood', 'Glacial', 'Tarloks Rage', 'Tarloks Wind', 'Tarloks Wisdom', 'Reinforced Fire', 'Reinforced Blood', 'Reinforced Glacial', 'Paracelsus Soul Stone', 'Elondrian', 'Enchanted Eye Of Syrillax', 'Necropolis Cursed Skull'];
 			
 			service.jewelTypeList = ['Chaos', 'Diamond', 'Finesse', 'Fury', 'Lightning', 'Mind', 'Nature', 'Water'];
 			

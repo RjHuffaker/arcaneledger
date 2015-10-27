@@ -19,3 +19,24 @@ table {
 .selected {
 	background-color: lightblue;
 }
+
+.socket {
+	display: inline-block;
+	margin: 0 2px;
+}
+
+.socket img {
+	height: 100%;
+	width: 100%;
+}
+
+.socket-background {
+	height: 20px;
+	width: 20px;
+}
+
+.socket-foreground {
+	position: absolute;
+	height: 20px;
+	width: 20px;
+}

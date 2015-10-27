@@ -92,18 +92,21 @@ angular.module("arcaneledger")
 				$scope.viewAuction.level = auction.level;
 				$scope.viewAuction.sockets = auction.sockets;
 				
-				$scope.itemSort = { name: '', keywords: { slot: '', class: '', rarity: '' } };
-				
 				$location.path('/auctions/edit');
 			} else {
 				$scope.viewAuction = { price: 105, level: 1,
+					item: {
+						name: '',
+						keywords: {
+							slot: '', class: '', rarity: ''
+						}
+					},
 					sockets: [
 						{ quality: '', type: '', category: '' },
 						{ quality: '', type: '', category: '' },
 						{ quality: '', type: '', category: '' }
 					]
 				};
-				$scope.itemSort = { name: '', keywords: { slot: '', class: '', rarity: '' } };
 				
 				console.log($scope.viewAuction);
 				$location.path('/auctions/add');
@@ -115,10 +118,10 @@ angular.module("arcaneledger")
 			$scope.currentRow.item = auction.item;
 			$scope.currentRow.price = auction.price;
 			$scope.currentRow.level = auction.level;
+			
 			$scope.currentRow.socket_1 = auction.socket_1;
 			$scope.currentRow.socket_2 = auction.socket_2;
 			$scope.currentRow.socket_3 = auction.socket_3;
-			
 			
 			$location.path('/auctions');
 		};
@@ -158,27 +161,37 @@ angular.module("arcaneledger")
 			$location.path('/auctions');
 		};
 		
-		$scope.setSockets = function(auction){
-			var socketItems = ['Weapon', 'Helment', 'Armor', 'Ring', 'Amulet'];
-			var rarity = auction.item.keywords.rarity;
-			
-			if(socketItems.indexOf(auction.item.keywords.slot) > -1){
-				if(rarity === ''){
-					auction.sockets.length = 0;
-				} else if(rarity === 'Common'){
-					auction.sockets.length = 0;
-				} else if(rarity === 'Rare'){
-					auction.sockets.length = 0;
-				} else if(rarity === 'Epic'){
-					auction.sockets.length = 1;
-				} else if(rarity === 'Legendary'){
-					auction.sockets.length = 2;
-				} else if(rarity === 'Mythic'){
-					auction.sockets.length = 3;
-				} else if(rarity === 'Vanity'){
-					auction.sockets.length = 0;
-				} else if(rarity === 'Arcane'){
-					auction.sockets.length = 3;
+		$scope.setAuctionItem = function(auction, item){
+			auction.item.name = item.name;
+			auction.item.keywords = item.keywords;
+			$scope.setSockets(auction, item);
+		};
+		
+		$scope.setSockets = function(auction, item){	
+			if(['Weapon', 'Helment', 'Armor', 'Ring', 'Amulet'].indexOf(auction.item.keywords.slot) > -1){
+				var newLength = 0;
+				
+				switch(auction.item.keywords.rarity){
+					case 'Epic':
+						newLength = 1;
+						break;
+					case 'Legendary':
+						newLength = 2;
+						break;
+					case 'Mythic':
+						newLength = 3;
+						break;
+					case 'Arcane':
+						newLength = 3;
+						break;
+				}
+				
+				auction.sockets.length = newLength;
+				
+				for(var i = 0; i < newLength; i++){
+					if(!auction.sockets[i]){
+						auction.sockets.push({ quality: '', type: '', category: '' });
+					}
 				}
 			} else {
 				auction.sockets.length = 0;

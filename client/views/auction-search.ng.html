@@ -85,7 +85,7 @@
 	
 	<div class="form-group">
 		<div class="col-xs-3" style="z-index: 2">
-			<h4>Max Price</h4>
+			<h4>Min Price</h4>
 			<div numpicker
 				numvalue="auctionSort.price.min"
 				numvaluemin="105"
@@ -94,7 +94,7 @@
 		</div>
 		
 		<div class="col-xs-3" style="z-index: 2">
-			<h4>Min Price</h4>
+			<h4>Max Price</h4>
 			<div numpicker
 				numvalue="auctionSort.price.max"
 				numvaluemin="auctionSort.price.min"
@@ -103,7 +103,7 @@
 		</div>
 		
 		<div class="col-xs-3" style="z-index: 2">
-			<h4>Max Level</h4>
+			<h4>Min Level</h4>
 			<div numpicker
 				numvalue="auctionSort.level.min"
 				numvaluemin="1"
@@ -112,7 +112,7 @@
 		</div>
 		
 		<div class="col-xs-3" style="z-index: 2">
-			<h4>Min Level</h4>
+			<h4>Max Level</h4>
 			<div numpicker
 				numvalue="auctionSort.level.max"
 				numvaluemin="auctionSort.level.min"
@@ -120,7 +120,7 @@
 				numdelay="200"></div>
 		</div>
 	</div>
-
+	
 	<h4>Auction Search Results</h4>
 	<div class="form-group">
 		<div class="col-xs-12">
@@ -171,12 +171,6 @@
 						</th>
 						
 						<th>
-							<a href="">
-								Sockets
-							</a>
-						</th>
-						
-						<th>
 							<a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
 								Date
 								<span ng-show="sortType === 'date' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
@@ -191,21 +185,29 @@
 							| auctionFilter:auctionSort"
 						ng-class="{selected: (auction === currentRow)}"
 						ng-click="selectRow(auction)">
-						<td>{{auction.item.name}}</td>
+						<td>{{auction.item.name}}
+							<span class="pull-right">
+								
+								<div class="socket" title="{{socket.quality}} {{socket.type}} {{socket.category}}"
+									ng-repeat="socket in auction.sockets track by $index">
+								
+		        			<div class="socket-foreground">
+									  <img ng-show="socket.type && socket.category"
+								  		ng-src="img/sockets/{{socket.quality + socket.type + socket.category | nospace}}.png">
+								  </div>
+		        			
+		        			<div class="socket-background">
+	        					<img ng-src="img/sockets/Empty.png">
+								  </div>
+							  
+							  </div>
+	        		</span>
+	        	</td>
 						<td>{{auction.level}}</td>
 						<td>{{auction.price}}</td>
 						<td>{{auction.item.keywords.slot}}</td>
 						<td>{{auction.item.keywords.class}}</td>
 						<td>{{auction.item.keywords.rarity}}</td>
-						<td>
-							<ul>
-								<li ng-repeat="socket in auction.sockets track by $index"
-									data-toggle="tooltip" data-placement="left"
-		        			title="{{socket.quality}} {{socket.type}} {{socket.category}}">
-									{{socket.quality}} {{socket.type}} {{socket.category}}
-								</li>
-							</ul>
-						</td>
 						<td>{{auction.date | date:'short'}}</td>
 					</tr>
 				</tbody>

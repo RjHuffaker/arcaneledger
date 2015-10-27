@@ -24,7 +24,7 @@
 				  		</a>
 				  	</li>
 				    <li ng-repeat="item in itemList | itemFilter:itemSort">
-				    	<a href="" ng-click="viewAuction.item = item; setSockets(viewAuction)">{{item.name}}</a>
+				    	<a href="" ng-click="setAuctionItem(viewAuction, item)">{{item.name}}</a>
 				    </li>
 				  </ul>
 				</div>
@@ -131,6 +131,16 @@
 					<button class="btn btn-default dropdown-toggle form-control"
 				  	type="button" data-toggle="dropdown"
 				  	aria-haspopup="true" aria-expanded="false">
+				  	
+				  	<img height="20" width="20"
+				  		ng-hide="socketObject.type && socketObject.category"
+	        		ng-src="img/sockets/Empty.png">
+				  	
+				  	<img height="20" width="20"
+				  		ng-show="socketObject.type && socketObject.category"
+	        		ng-src="img/sockets/
+	        			{{socketObject.quality + socketObject.type + socketObject.category | nospace}}.png">
+	        			
 				    {{socketObject.quality}}
 				    {{socketObject.type || '[TYPE]'}}
 				    {{socketObject.category || '[CATEGORY]'}}
@@ -155,12 +165,32 @@
 				    <li ng-if="socketObject.category === 'Gem'"
 				    		ng-repeat="gem in socketData.gemTypeList">
 				    	<a href="" ng-click="socketObject.type = gem">
+				    		
+				    		<img height="20" width="20"
+						  		ng-hide="socketObject.type && socketObject.category"
+			        		ng-src="img/sockets/Empty.png">
+						  	
+						  	<img height="20" width="20"
+						  		ng-show="socketObject.type && socketObject.category"
+			        		ng-src="img/sockets/
+			        			{{socketObject.quality + socketObject.type + socketObject.category | nospace}}.png">
+			        		
 				    		{{socketObject.quality}} {{gem}} {{socketObject.category}}
 				    	</a>
 				    </li>
 				    <li ng-if="socketObject.category === 'Jewel'"
 				    		ng-repeat="jewel in socketData.jewelTypeList">
 				    	<a href="" ng-click="socketObject.type = jewel">
+				    		
+				    		<img height="20" width="20"
+						  		ng-hide="socketObject.type && socketObject.category"
+			        		ng-src="img/sockets/Empty.png">
+						  	
+						  	<img height="20" width="20"
+						  		ng-show="socketObject.type && socketObject.category"
+			        		ng-src="img/sockets/
+			        			{{socketObject.quality + socketObject.type + socketObject.category | nospace}}.png">
+			        		
 				    		{{socketObject.quality}} {{jewel}} {{socketObject.category}}
 				    	</a>
 				    </li>
