@@ -1,0 +1,225 @@
+<div class="modal-overlay" ng-click="cancelAuction()"></div>
+
+<div class="modal-window
+	col-xs-10 col-xs-offset-0
+	col-sm-8 col-sm-offset-1
+	col-md-8 col-md-offset-2
+	col-lg-6 col-lg-offset-3">
+
+	<form class="form form-horizontal">
+		<h4 ng-show="viewAuction._id">Edit Auction</h4>
+		
+		<h4 ng-hide="viewAuction._id">New Auction</h4>
+		
+		<div ng-show="viewAuction._id">
+			Item: {{viewAuction.item.name}} <br>
+			Slot: {{viewAuction.item.keywords.slot}} <br>
+			Class: {{viewAuction.item.keywords.class}} <br>
+			Rarity: {{viewAuction.item.keywords.rarity}} <br>
+		</div>
+		
+		<div class="form-group" ng-hide="viewAuction._id">
+			<div class="col-xs-12 col-sm-8">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle form-control"
+						type="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						{{viewAuction.item.name || '[ITEM]'}}&nbsp;
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" style="z-index: 5">
+						<li>
+							<a href="" ng-click="viewAuction.item = {}; setSockets(viewAuction)">[ITEM]
+							</a>
+						</li>
+						<li ng-repeat="item in itemList | itemFilter:itemSort">
+							<a href="" ng-click="viewAuction.item = item; setSockets(viewAuction)">{{item.name}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-4" role="group" style="z-index: 3">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<button class="btn btn-default dropdown-toggle"
+									type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									{{itemSort.keywords.slot || '(slot)'}} / {{itemSort.keywords.class || '(class)'}} / {{itemSort.keywords.rarity || '(rarity)'}}
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									
+									<li>
+							    	<a href="" stop-click ng-click="itemSort.keywords.slot = ''">
+							    		<b>Slot: </b>{{itemSort.keywords.slot}}
+							    	</a>
+							    </li>
+							    <li ng-if="!itemSort.keywords.slot" ng-repeat="slot in itemData.slotList">
+							    	<a href="" stop-click ng-click="itemSort.keywords.slot = slot.text">
+							    		&nbsp; &nbsp;{{slot.text}}
+							    	</a>
+							    </li>
+							    <li ng-class="{disabled: classSlots.indexOf(itemSort.keywords.slot) === -1}">
+							    	<a href="" stop-click ng-click="itemSort.keywords.class = ''">
+							    		<b>Class: </b>{{itemSort.keywords.class}}
+							    	</a>
+							    </li>
+							  	<li ng-hide="itemSort.keywords.class
+							  		|| classSlots.indexOf(itemSort.keywords.slot) === -1"
+							  		ng-repeat="class in itemData.classList">
+							    	<a href="" stop-click ng-click="itemSort.keywords.class = class.text">
+							    		&nbsp; &nbsp;{{class.text}}
+							    	</a>
+							    </li>
+							    <li>
+							    	<a href="" stop-click ng-click="itemSort.keywords.rarity = ''">
+							    		<b>Rarity: </b>{{itemSort.keywords.rarity}}
+							    	</a>
+							    </li>
+							  	<li ng-if="!itemSort.keywords.rarity" ng-repeat="rarity in itemData.rarityList">
+							    	<a href="" stop-click ng-click="itemSort.keywords.rarity = rarity.text">
+							    		&nbsp; &nbsp;{{rarity.text}}
+							    	</a>
+							    </li>
+							    <li>
+							    	<a href="">
+							    		<b class="pull-right">Close</b>
+							    	</a>
+							    </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<div class="col-xs-6" style="z-index: 2">
+				<h4>Price</h4>
+				<div numpicker
+					numvalue="viewAuction.price"
+					numvaluemin="105"
+					numvaluemax=""
+					numdelay="200"></div>
+			</div>
+			
+			<div class="col-xs-6" style="z-index: 2">
+				<h4>Level</h4>
+				<div numpicker
+					numvalue="viewAuction.level"
+					numvaluemin="1"
+					numvaluemax="46"
+					numdelay="200"></div>
+			</div>
+		</div>
+		
+		<div class="form-group" ng-repeat="socketObject in viewAuction.sockets track by $index">
+			<div class="col-xs-4">
+				<h4>Socket #{{$index+1}}</h4>
+			</div>
+			<div class="col-xs-8">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle form-control"
+						type="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<img height="20" width="20"
+							ng-src="img/sockets/{{socketObject.quality + socketObject.type + socketObject.category | socketName}}.png">
+						<span>
+							{{socketObject.quality + ' ' + socketObject.type + ' ' + socketObject.category}}
+						</span>
+						<span ng-hide="socketObject.quality || socketObject.type || socketObject.category">
+							Empty Socket
+						</span>
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" style="z-index: 3; width: 100%; height: 15em; overflow-y: auto;">
+						
+						<li>
+							<a href="" stop-click ng-click="
+								socketObject.quality = '';
+								socketObject.type = '';
+								socketObject.category = '';">
+								<img height="20" width="20" ng-src="img/sockets/EmptySocket.png">
+								Empty Socket
+							</a>
+						</li>
+						
+						<li ng-if="!socketObject.category"
+								ng-repeat="socket in socketData.socketList">
+							<a href="" stop-click ng-click="socketObject.quality = socket.quality;
+									socketObject.category = socket.category">
+								&nbsp; &nbsp; <img height="20" width="20"
+									ng-src="img/sockets/{{socket.quality + socketObject.type + socket.category | socketName}}.png">
+								{{socket.quality}} {{socket.category}}
+							</a>
+						</li>
+						
+						<li ng-if="socketObject.category">
+							<a href='' stop-click ng-click="
+								socketObject.quality = '';
+								socketObject.type = '';
+								socketObject.category = '';">
+								&nbsp; &nbsp; <img height="20" width="20"
+									ng-src="img/sockets/{{socketObject.quality + socketObject.category | socketName}}.png">
+								{{socketObject.quality}} {{socketObject.category}}
+							</a>
+						</li>
+						
+						<li ng-if="socketObject.category === 'Gem'"
+								ng-repeat="gem in socketData.grandGemList">
+							<a href="" ng-click="socketObject.type = gem">
+								&nbsp; &nbsp; &nbsp; &nbsp; <img height="20" width="20"
+									ng-src="img/sockets/{{socketObject.quality + gem + socketObject.category | socketName}}.png">
+								{{socketObject.quality}} {{gem}} {{socketObject.category}}
+							</a>
+						</li>
+						
+						<li ng-if="socketObject.category === 'Gem' && socketObject.quality !== 'Grand'"
+								ng-repeat="gem in socketData.gemList">
+							<a href="" ng-click="socketObject.type = gem">
+								&nbsp; &nbsp; &nbsp; &nbsp; <img height="20" width="20"
+									ng-src="img/sockets/{{socketObject.quality + gem + socketObject.category | socketName}}.png">
+								{{socketObject.quality}} {{gem}} {{socketObject.category}}
+							</a>
+						</li>
+						
+						<li ng-if="socketObject.category === 'Jewel'"
+								ng-repeat="jewel in socketData.jewelTypeList">
+							<a href="" ng-click="socketObject.type = jewel">
+								&nbsp; &nbsp; &nbsp; &nbsp; <img height="20" width="20"
+									ng-src="img/sockets/{{socketObject.quality + jewel + socketObject.category | socketName}}.png">
+								{{socketObject.quality}} {{jewel}} {{socketObject.category}}
+							</a>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 2">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<a class="btn btn-default"
+									ng-click="saveAuction(viewAuction)"
+									role="button" href="/auctions">*Save*</a>
+							</div>
+							<div class="btn-group">
+								<a class="btn btn-default"
+									role="button" href="/auctions">*Cancel*</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

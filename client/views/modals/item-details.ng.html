@@ -1,0 +1,117 @@
+<div class="modal-overlay" ng-click="cancelItem()"></div>
+
+<div class="modal-window
+	col-xs-10 col-xs-offset-1
+	col-sm-8 col-sm-offset-1
+	col-md-6 col-md-offset-2
+	col-lg-4 col-lg-offset-3">
+	
+	<form class="form-horizontal">
+		<h4>Item Details</h4>
+		
+		<div class="form-group">
+			<div class="col-xs-12 col-sm-8" role="group">
+				<input class="form-control" type="text" placeholder="[Item Name]"
+					ng-model="viewItem.name">
+			</div>
+		
+			<div class="col-xs-12 col-sm-4" role="group" style="z-index: 3">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							
+							<div class="btn-group">
+								
+								<button class="btn btn-default dropdown-toggle"
+									type="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									{{viewItem.keywords.slot || '(slot)'}} / {{viewItem.keywords.class || '(class)'}} / {{viewItem.keywords.rarity || '(rarity)'}}
+									<span class="caret"></span>
+								</button>
+								
+								
+							  <ul class="dropdown-menu">
+							    <li>
+							    	<a href="" stop-click ng-click="viewItem.keywords.slot = ''">
+							    		<b>Slot: </b>{{viewItem.keywords.slot}}
+							    	</a>
+							    </li>
+							    <li ng-if="!viewItem.keywords.slot" ng-repeat="slot in itemData.slotList">
+							    	<a href="" stop-click ng-click="viewItem.keywords.slot = slot.text">
+							    		&nbsp; &nbsp;{{slot.text}}
+							    	</a>
+							    </li>
+							    
+							    <li ng-class="{disabled: classSlots.indexOf(viewItem.keywords.slot) === -1}">
+							    	<a href="" stop-click ng-click="viewItem.keywords.class = ''">
+							    		<b>Class: </b>{{viewItem.keywords.class}}
+							    	</a>
+							    </li>
+							  	<li ng-hide="viewItem.keywords.class
+							  		|| classSlots.indexOf(viewItem.keywords.slot) === -1"
+							  		ng-repeat="class in itemData.classList">
+							    	<a href="" stop-click ng-click="viewItem.keywords.class = class.text">
+							    		&nbsp; &nbsp;{{class.text}}
+							    	</a>
+							    </li>
+							    
+							    <li>
+							    	<a href="" stop-click ng-click="viewItem.keywords.subtype = ''">
+							    		<b>Subtype: </b>{{viewItem.keywords.subtype}}
+							    	</a>
+							    </li>
+							    <li ng-if="!viewItem.keywords.subtype"
+							    	ng-repeat="subtype in itemData.subtypeList | keywordFilter: viewItem">
+							    	<a href="" stop-click ng-click="viewItem.keywords.subtype = subtype.text">
+							    		&nbsp; &nbsp;{{subtype.text}}
+							    	</a>
+							    </li>
+							    
+							    <li>
+							    	<a href="" stop-click ng-click="viewItem.keywords.rarity = ''">
+							    		<b>Rarity: </b>{{viewItem.keywords.rarity}}
+							    	</a>
+							    </li>
+							  	<li ng-if="!viewItem.keywords.rarity" ng-repeat="rarity in itemData.rarityList">
+							    	<a href="" stop-click ng-click="viewItem.keywords.rarity = rarity.text">
+							    		&nbsp; &nbsp;{{rarity.text}}
+							    	</a>
+							    </li>
+							    <li>
+							    	<a href="">
+							    		<b class="pull-right">Close</b>
+							    	</a>
+							    </li>
+							    
+							  </ul>
+						  </div>
+						  
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-xs-12" role="group" style="z-index: 2">
+				<div class="input-group">
+					<div class="input-group-btn">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<a class="btn btn-default"
+									ng-click="saveItem(viewItem)"
+									role="button" href="/items">*Save*</a>
+							</div>
+							<div class="btn-group">
+								<a class="btn btn-default"
+									role="button" href="/items">*Cancel*</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+	
+</div>

@@ -4,24 +4,28 @@ angular.module("arcaneledger")
 		
     $scope.error = '';
     
-    $scope.register = function(){
+    $scope.register = function () {
       $meteor.createUser($scope.credentials).then(
-        function(){
+        function () {
           console.log('new user registered');
         },
-        function(err){
-          $scope.error = 'Registration error - ' + err;
+        function (err) {
+          $scope.credentials.username = '';
+          $scope.credentials.password = '';
+          $scope.registerError = 'Registration Error';
         }
       );
     };
     
-    $scope.login = function(){
-      $meteor.loginWithPassword($scope.credentials.email, $scope.credentials.password).then(
-        function(){
+    $scope.login = function () {
+      $meteor.loginWithPassword($scope.credentials.username, $scope.credentials.password).then(
+        function () {
           console.log('user logged in');
         },
         function (err) {
-          $scope.error = 'Login error - ' + err;
+          $scope.credentials.username = '';
+          $scope.credentials.password = '';
+          $scope.loginError = 'Login Error';
         }
       );
     };
@@ -32,7 +36,7 @@ angular.module("arcaneledger")
           console.log('user logged out');
         },
         function (err) {
-          $scope.error = 'Logout error - ' + err;
+          $scope.logoutError = 'Logout Error';
         }
       );
 		};

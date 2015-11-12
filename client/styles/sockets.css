@@ -1,0 +1,20 @@
+.socket {
+	display: inline-block;
+	margin: 0 1px;
+}
+
+.socket img {
+	height: 100%;
+	width: 100%;
+}
+
+.socket-background {
+	height: 1em;
+	width: 1em;
+}
+
+.socket-foreground {
+	position: absolute;
+	height: 1em;
+	width: 1em;
+}

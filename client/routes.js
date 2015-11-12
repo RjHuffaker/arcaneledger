@@ -12,42 +12,28 @@ angular.module('arcaneledger').config(['$urlRouterProvider', '$stateProvider', '
       .state('auctions', {
         url: '/auctions',
         templateUrl: 'client/views/auction-search.ng.html',
-        controller: 'AuctionCtrl'
+        controller: 'AuctionSearchCtrl'
       })
-      .state('auctions.add', {
-        url: '/add',
+      .state('auctions.details', {
+        url: '/:auctionId',
         views: {
-          'addAuctionModal': {
-            templateUrl: 'client/views/modals/add-auction.ng.html'
-          }
-        }
-      })
-      .state('auctions.edit', {
-        url: '/edit',
-        views: {
-          'editAuctionModal': {
-            templateUrl: 'client/views/modals/edit-auction.ng.html'
+          'auctionDetailsModal': {
+            templateUrl: 'client/views/modals/auction-details.ng.html',
+            controller: 'AuctionDetailsCtrl'
           }
         }
       })
       .state('items', {
         url: '/items',
         templateUrl: 'client/views/item-search.ng.html',
-        controller: 'ItemCtrl'
+        controller: 'ItemSearchCtrl'
       })
-      .state('items.add', {
-        url: '/add',
+      .state('items.details', {
+        url: '/:itemId',
         views: {
-          'addItemModal': {
-            templateUrl: 'client/views/modals/add-item.ng.html'
-          }
-        }
-      })
-      .state('items.edit', {
-        url: '/edit',
-        views: {
-          'editItemModal': {
-            templateUrl: 'client/views/modals/edit-item.ng.html'
+          'itemDetailsModal': {
+            templateUrl: 'client/views/modals/item-details.ng.html',
+            controller: 'ItemDetailsCtrl'
           }
         }
       })

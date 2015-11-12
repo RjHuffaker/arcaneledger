@@ -1,4 +1,21 @@
 angular.module("arcaneledger")
+	.filter('keywordFilter', function(){
+		return function(items, sortObject){
+			var filtered = [];
+			var keywords = sortObject.keywords;
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i];
+				if(item.keywords.slot === keywords.slot || item.keywords.slot === ''){
+					if(item.keywords.class === keywords.class || item.keywords.class === ''){
+						if(item.keywords.rarity === keywords.rarity || item.keywords.rarity === ''){
+							filtered.push(item);
+						}
+					}
+				}
+			}
+			return filtered;
+		};
+	})
 	.filter('itemFilter', function(){
 		return function(items, itemSort){
 			var filtered = [];

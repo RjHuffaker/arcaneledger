@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Arcane Ledger</a>
+      <a class="navbar-brand" href="/">Arcane Ledger</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -23,7 +23,7 @@
         
         <li class="dropdown navbar-inverse" ng-show="$root.currentUser">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span>{{ $root.currentUser.emails[0].address }}</span>
+            <span>{{ $root.currentUser.username }}</span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
@@ -41,14 +41,15 @@
             <li>
               <form class="form login-register">
                 <input class="form-control" type="text"
-                  placeholder="email" aria-label="email"
-                  ng-model="credentials.email"/>
+                  placeholder="username" aria-label="username"
+                  ng-model="credentials.username"/>
                 <input class="form-control" type="password"
                   placeholder="password" aria-label="password"
                   ng-model="credentials.password"/>
                 <button class="btn btn-primary form-control" ng-click="login()">
                   Login
                 </button>
+                <div ng-if="loginError" class="alert-danger">Login Error</div>
               </form>
             </li>
           </ul>
@@ -62,14 +63,15 @@
             <li>
               <form class="form login-register">
                 <input class="form-control" type="text"
-                  placeholder="email" aria-label="email"
-                  ng-model="credentials.email"/>
+                  placeholder="username" aria-label="username"
+                  ng-model="credentials.username"/>
                 <input class="form-control" type="password"
                   placeholder="password" aria-label="password"
                   ng-model="credentials.password"/>
                 <button class="btn btn-primary form-control" ng-click="register()">
                   Register
                 </button>
+                <div ng-if="registerError" class="alert-danger">Registration Error</div>
               </form>
             </li>
           </ul>

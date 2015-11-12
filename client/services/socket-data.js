@@ -71,10 +71,6 @@ angular.module("arcaneledger")
 				}
 			];
 			
-			service.gemTypeList = ['Fire', 'Blood', 'Glacial', 'Tarloks Rage', 'Tarloks Wind', 'Tarloks Wisdom', 'Reinforced Fire', 'Reinforced Blood', 'Reinforced Glacial', 'Paracelsus Soul Stone', 'Elondrian', 'Enchanted Eye Of Syrillax', 'Necropolis Cursed Skull'];
-			
-			service.jewelTypeList = ['Chaos', 'Diamond', 'Finesse', 'Fury', 'Lightning', 'Mind', 'Nature', 'Water'];
-			
 			service.socketList = [
 				{quality: '', category: 'Gem'},
 				{quality: 'Grand', category: 'Gem'},
@@ -84,9 +80,15 @@ angular.module("arcaneledger")
 				{quality: 'Standard', category: 'Jewel'},
 				{quality: 'Fortified', category: 'Jewel'},
 				{quality: 'Excellent', category: 'Jewel'},
-				{quality: 'Superb', category: 'Jewel'},
+				{quality: 'Superior', category: 'Jewel'},
 				{quality: 'Noble', category: 'Jewel'}
 			];
+			
+			service.grandGemList = ['Fire', 'Blood', 'Glacial', 'Tarlok\'s Rage', 'Tarlok\'s Wind', 'Tarlok\'s Wisdom', 'Reinforced Fire', 'Reinforced Blood', 'Reinforced Glacial', 'Elondrian', 'Necropolis Cursed Skull'];
+			
+			service.gemList = ['Paracelsus Soul Stone', 'Enchanted Eye Of Syrillax'];
+			
+			service.jewelTypeList = ['Chaos', 'Diamond', 'Finesse', 'Fury', 'Lightning', 'Mind', 'Nature', 'Water'];
 			
 			return service;
 			

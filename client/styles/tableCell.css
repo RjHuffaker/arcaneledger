@@ -1,0 +1,39 @@
+.outerTable{
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+.outerRow{
+	display: table-row;
+}
+.outerCell{
+	display: table-cell;
+	min-height: 100%;
+}
+
+.innerTable{
+	display: table;
+	position: absolute;
+	max-height: 100%;
+	width: 100%;
+}
+.innerRow{
+	display: table-row;
+	min-height: 100%;
+	height: 100%;
+}
+.innerCell{
+	display: table-cell;
+	height: 100%;
+	padding-top: .25em;
+	padding-bottom: .25em;
+	border: 1px solid lightgrey;
+	cursor: default;
+}
+
+.scrollDiv {
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 100%;
+}
